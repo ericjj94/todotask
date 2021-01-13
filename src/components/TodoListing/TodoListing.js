@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import SimpleTable from '../../presentationalComponents/SimpleTable/SimpleTable';
 
 
 const TodoListing = ({ todos }) => { 
@@ -12,10 +13,10 @@ const TodoListing = ({ todos }) => {
             </div>
         </div>
     }
-    if(todos && todos.length) {
-        return (<div>{renderTodosInTable}</div>)
-    }
-    return renderNoTodosMessage()
+
+    return (<div className="main-content">
+        {todos && todos.length ? <SimpleTable todos={todos}/>: renderNoTodosMessage()}
+    </div>)
 }
 const mapStateToProps = state => ({
     todos: state.todoListReducer.todos

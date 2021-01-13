@@ -22,7 +22,7 @@ const customStyles = {
   },
 };
 
-const CreateTodo = ({ createTodo, cancelCreateTodo, addEntryToDoList }) => {
+const CreateTodo = ({ createTodo, showListing, addEntryToDoList }) => {
   const [state, setState] = useState({
     todoName: "",
     todoDescription: "",
@@ -30,17 +30,17 @@ const CreateTodo = ({ createTodo, cancelCreateTodo, addEntryToDoList }) => {
   });
   const { todoName, todoDescription, todoBucket } = state;
   
-  function handleInputChange(evt) {
-    const value = evt.target.value;
+  function handleInputChange(event) {
+    const value = event.target.value;
     setState({
       ...state,
-      [evt.target.name]: value
+      [event.target.name]: value
     });
   }
   function handleCreateTodo(){
     if(todoName && todoDescription) {
         addEntryToDoList({todoName, todoDescription })
-        cancelCreateTodo();
+        showListing();
     }  
   }
   function renderTodoEntities() {
@@ -100,7 +100,7 @@ const CreateTodo = ({ createTodo, cancelCreateTodo, addEntryToDoList }) => {
               variant="contained"
               color="secondary"
               style={{ top: "10px" }}
-              onClick={cancelCreateTodo}
+              onClick={showListing}
             >
               Cancel
             </Button>
@@ -123,7 +123,6 @@ const CreateTodo = ({ createTodo, cancelCreateTodo, addEntryToDoList }) => {
   );
 };
 const mapStateToProps = (state) => {
- console.log('state',state);
     return {
       todo: state.todoListReducer.todos
   }  

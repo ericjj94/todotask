@@ -1,38 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
+import React, { useState } from 'react';
 import CreateTodo from '../CreateTodo/CreateTodo';
 import TodoListing from '../TodoListing/TodoListing';
+import ClearTodos from '../ClearTodos/ClearTodos';
+import Header from '../../presentationalComponents/Header/Header';
 
 const LandingPage = () => {
+  const [state, setState] = useState({ currentTab: 'listing', isOpen: false });
+  const { currentTab, isOpen } = state;
 
-    const [state, setState ] = useState({ currentTab: 'listing', isOpen: false });
-    const { currentTab, isOpen } = state;
-    function handleCreate() {
-        setState({ ...state, currentTab: 'create', isOpen: true })
-    }
-    function cancelCreateTodo(){
-        setState({...state, currentTab: 'listing', isOpen: false })
-    }
+  function showListing() {
+    setState({ ...state, currentTab: 'listing', isOpen: false });
+  }
 
-    function showTabs(){
-        switch(currentTab)  {
-            case 'create' : return <CreateTodo createTodo={isOpen} cancelCreateTodo={cancelCreateTodo}/>
-            case 'listing' : return <TodoListing /> 
-        }
+  function showTabs() {
+    switch (currentTab) {
+      case 'create':
+        return (
+          <CreateTodo createTodo={isOpen} showListing={showListing} />
+        );
+      case 'listing':
+        return <TodoListing />;
+      case 'clear':
+        return <ClearTodos showListing={showListing} />;
+      default:
+        return null;
     }
-    return (<div className="container">
-        <div className="row">
-            <div className="col-md-4">
-                <Button variant="contained" color="primary" onClick={handleCreate}>Create a TODO</Button>
-            </div>
-            <div className="col-md-4">
-                <Button variant="contained" color="primary">View all TODOS</Button>
-            </div>
-            <div className="row">
-            <Button variant="contained" color="primary">Clear all</Button>
-            </div>
-        </div>
-         {showTabs()}
-    </div>)
-}
+  }
+
+  function handleClick(type) {
+    // Refract here to be more optimised
+    if (type === 'clear') {
+      setState({ ...state, currentTab: 'clear', isOpen: false });
+    } else if (type === 'listing') {
+      setState({ ...state, currentTab: 'listing', isOpen: false });
+    } else {
+      setState({ ...state, currentTab: 'create', isOpen: true });
+    }
+  }
+  return (
+    <div className="container">
+      <h2>TODO list application</h2>
+      <Header handleClick={handleClick} />
+      {showTabs()}
+    </div>
+  );
+};
 export default LandingPage;

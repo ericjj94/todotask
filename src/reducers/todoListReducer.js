@@ -12,6 +12,12 @@ const todoListReducer = (state = initialState, action) => {
                 todos: clonedTodos
             }
         }
+        case 'CLEAR_ALL' : {
+            return  {
+                ...state,
+                todos: []
+            }
+        }
 
         default: return state;
 
