@@ -18,6 +18,14 @@ const todoListReducer = (state = initialState, action) => {
                 todos: []
             }
         }
+        case 'DELETE_TODO' :{
+            const updatedTodos = state.todos.filter((todo,index)=> index !== action.id );
+            console.log('updatedTodos',updatedTodos);
+            return {
+                ...state,
+                todos: updatedTodos
+            }
+        } 
 
         default: return state;
 

@@ -8,3 +8,11 @@ export function clearAll(){
         type: 'CLEAR_ALL'
     }
 }
+
+export function deleteTodo(selectedId) {
+    console.log('heree');
+    return {
+        type: 'DELETE_TODO',
+        id: selectedId
+    }
+}

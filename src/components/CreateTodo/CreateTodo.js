@@ -122,9 +122,7 @@ const CreateTodo = ({ createTodo, showListing, addEntryToDoList }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => {
-    return {
-      todo: state.todoListReducer.todos
-  }  
-}
+const mapStateToProps = (state) => ({
+  todo: state.todoListReducer.todos 
+})
 export default connect(mapStateToProps, { ...todoListActions })(CreateTodo);
